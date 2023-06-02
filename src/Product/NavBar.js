@@ -5,14 +5,18 @@ import Navbar from 'react-bootstrap/Navbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function NavBar() {
+  const cartProduct=useSelector((state)=>state.cart)
   
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
-        <Navbar.Brand >Our Store</Navbar.Brand>
+      <Link to="/" style={{ textDecoration: 'none' }}>
+      <Navbar.Brand>Clothing Store</Navbar.Brand>
+      </Link>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -21,9 +25,9 @@ function NavBar() {
             navbarScroll
           >
           </Nav>
-    
-          <FontAwesomeIcon icon={faShoppingCart} /> :0
-
+    <Link to="/cart" style={{textDecoration:'none'}}>
+          <FontAwesomeIcon icon={faShoppingCart} className='txt'/>:{cartProduct.length}
+          </Link>
          
         </Navbar.Collapse>
         

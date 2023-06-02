@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { addItem } from '../redux/cartSlice';
+import { useSelector,useDispatch } from 'react-redux';
 import {
   Card,
   CardBody,
@@ -6,13 +8,14 @@ import {
   Stack,
   Heading,
   Text,
-  Button,
 } from '@chakra-ui/react';
 
 function Product() {
-    const [products, setProducts] = useState([]);
+  const dispatch=useDispatch();
+  const productsCart = useSelector((state) => state.cart);
+  const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-    const [filteredProducts, setFilteredProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   
     useEffect(() => {
       fetch('https://fakestoreapi.com/products?limit=8')
@@ -33,6 +36,15 @@ function Product() {
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
+     
+  const addingToCart = (product) => {
+    const isProductInCart = productsCart.some((item) => item.id === product.id);
+    if (!isProductInCart) {
+      dispatch(addItem(product));
+    }
+  };
+
+
 
     return (
       <div style={{ marginTop: '5px', marginBottom: '5px' }}>
@@ -65,9 +77,9 @@ function Product() {
                     Price: {product.price}
                   </Text>
                 </Stack>
-              <Button style={{ margin: '1.5px' }} colorScheme="blue">
+              <button style={{ margin: '1.5px' } }  type="button" onClick={()=>addingToCart(product)} class="btn btn-success">
                   Add to cart
-              </Button>
+              </button>
               </CardBody>
             </Card>
           ))}
