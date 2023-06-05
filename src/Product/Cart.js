@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Text } from '@chakra-ui/react';
 import { deleteItem } from '../redux/cartSlice';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function Cart() {
   const dispatch = useDispatch();
@@ -22,8 +23,11 @@ function Cart() {
     const quantity = quantities[product.id] || 1;
     return acc + product.price * quantity;
   }, 0);
-
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const cost = searchParams.get('cost');
   return (
+    
     <div>
       {productsCart.length > 0 ? (
         <h1 style={{ textAlign: 'center' }}>This is my Cart!</h1>
@@ -77,9 +81,11 @@ function Cart() {
           <p style={{ padding: '5px', fontSize: '30px' }}>
             <b>Total Cost: ${totalCost}</b>
           </p>
+          <Link to={`/paymentprocessing?cost=${totalCost}`}>
           <button style={{ padding: '5px', margin: '5px' }} type="button" className="btn btn-success btn-sm">
             Proceed to Payment
           </button>
+          </Link>
           <Link to="/">
             <button style={{ padding: '5px', margin: '5px' }} type="button" className="btn btn-primary btn-sm">
               Continue Shopping
