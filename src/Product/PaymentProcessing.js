@@ -7,7 +7,9 @@ const PaymentProcessing = () => {
   const searchParams = new URLSearchParams(location.search);
   const cost = searchParams.get('cost');
   useEffect(() => {
-    const modal = new window.bootstrap.Modal(document.getElementById('myModal'));
+    const modal = new window.bootstrap.Modal(document.getElementById('myModal'),{
+      backdrop:'static'
+    });
     modal.show();
 
     return () => {
@@ -20,7 +22,9 @@ const PaymentProcessing = () => {
       <div className="modal-content">
         <div className="modal-header">
           <h5 className="modal-title">Congratulations</h5>
+          <Link to="/">
           <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </Link>
         </div>
         <div className="modal-body">
           <p>Your order is completed and total cost is:{cost}</p>

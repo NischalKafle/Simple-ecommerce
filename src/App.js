@@ -8,10 +8,7 @@ import Thankyou from './Product/Thankyou';
 
 function App() {  
   return (
-    
-   
     <Routes>
-    
     <Route path="/" element={
       <div className="App" style={{textAlign:'center'}}>
       <NavBar/>
@@ -32,8 +29,7 @@ function App() {
       <PaymentProcessing/> 
 </div>
     }>
-    </Route>
- 
+    </Route> 
     <Route path="/thankyou" element={
       <Thankyou/>
     }>
